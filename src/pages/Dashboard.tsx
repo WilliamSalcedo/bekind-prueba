@@ -16,6 +16,7 @@ const Dashboard = () => {
     error,
     nextPage,
     prevPage,
+    reload
   } = useActions()
 
   return (
@@ -26,7 +27,7 @@ const Dashboard = () => {
         <button className="bg-indigo-600 text-white px-4 py-2 rounded-md text-sm" onClick={()=>setOpenDrawer(true)}>
           Crear acción
         </button>
-        <CreateActionDrawer open={openDrawer} onClose={()=>setOpenDrawer(false)}/>
+        <CreateActionDrawer open={openDrawer} onClose={()=>setOpenDrawer(false)} onCreated={reload}/>
       </div>
 
       {isLoading && <p>Cargando acciones…</p>}
