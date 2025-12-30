@@ -1,4 +1,20 @@
+import { useLogin } from "../hooks/useLogin";
+import { FiMail, FiLock, FiEye, FiEyeOff } from 'react-icons/fi'
+
 const Login = () => {
+
+const {
+    register,
+    handleSubmit,
+    errors,
+    isValid,
+    isLoading,
+    errorMessage,
+    togglePassword,
+    showPassword,
+    onSubmit
+  } = useLogin()
+
   return (
     <div
       className="min-h-screen flex items-center justify-center bg-cover bg-center"
@@ -21,27 +37,42 @@ const Login = () => {
 
         <div className="mb-4">
           <label className="block text-sm font-medium text-gray-700 mb-1">
+            
             Correo Electrónico*
           </label>
-          <input
+          <div className="relative">
+            <FiMail className="absolute top-3 left-3  text-gray-400"/>
+            <input
             type="email"
+            {...register("email",{required:true})}
             placeholder="Ingresar correo"
-            readOnly
-            className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm bg-gray-50"
+            className="w-full h-10  rounded-md border border-gray-300 pl-10 pr-3 text-sm bg-gray-50"
           />
+          </div>
+          {errors.email&&<p className="text-red-500 text-xs">Correo requerido</p>}
         </div>
 
         <div className="mb-4">
           <label className="block text-sm font-medium text-gray-700 mb-1">
             Contraseña*
           </label>
-          <input
-            type="password"
+          <div className="relative">
+            <FiLock className="absolute top-3 left-3  text-gray-400"/>
+            <input
+            type={showPassword?"text":"password"}
+            {...register("password",{required:true})}
             placeholder="Ingresa tu contraseña"
-            readOnly
-            className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm bg-gray-50"
+            className="w-full h-10  rounded-md border border-gray-300 pl-10 pr-3 text-sm bg-gray-50"
           />
+          <button type="button" onClick={togglePassword} className="absolute right-3 top-3 text-gray-400">
+            {showPassword? <FiEyeOff />: <FiEye />}
+          </button>
+          </div>
+          {errors.password&&<p className="text-red-500 text-xs">Contraseña requerida</p>}
         </div>
+
+
+        {errorMessage && (<p className="text-red-500 text-center mb-4 text-xs">{errorMessage}</p>)}
 
         <div className="text-center mb-6">
           <button
@@ -54,10 +85,11 @@ const Login = () => {
         <div className="flex justify-center mt-8 md:mt-12">
           <button
             type="button"
-            disabled
+            onClick={handleSubmit(onSubmit)}
+            disabled = {!isValid || isLoading}
             className="w-[200px] sm:w-[220px] md:w-[260px] h-10 rounded-md bg-gray-300 text-sm font-medium text-gray-600 cursor-not-allowed"
           >
-            Ingresar
+            {isLoading?"Ingresando..." : "Ingresar"}
           </button>
         </div>
       </div>
