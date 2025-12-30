@@ -1,4 +1,7 @@
+import { ActionsTable } from "../components/ActionTable"
+import { DashboardLayout } from "../components/DashboardLayout"
 import { useActions } from "../hooks/useAction"
+import { FaArrowAltCircleRight, FaArrowAltCircleLeft } from "react-icons/fa";
 
 
 const Dashboard = () => {
@@ -12,47 +15,45 @@ const Dashboard = () => {
     prevPage,
   } = useActions()
 
-  if (isLoading) {
-    return <p>Cargando acciones...</p>
-  }
-
-  if (error) {
-    return <p className="text-red-500">{error}</p>
-  }
-
-  if (actions.length === 0) {
-    return <p>No hay acciones registradas</p>
-  }
-
   return (
-    <div>
-      <h1>Acciones</h1>
+    <DashboardLayout>
+      <div className="flex justify-between items-center mb-6">
+        <h1 className="text-2xl font-semibold">Acciones</h1>
 
-      <ul>
-        {actions.map((action) => (
-          <li key={action.id}>
-            <strong>{action.name}</strong> – {action.description}
-          </li>
-        ))}
-      </ul>
-
-      <div style={{ marginTop: 16 }}>
-        <button onClick={prevPage} disabled={pageNumber === 1}>
-          Anterior
-        </button>
-
-        <span style={{ margin: '0 8px' }}>
-          Página {pageNumber} de {totalPages}
-        </span>
-
-        <button
-          onClick={nextPage}
-          disabled={pageNumber === totalPages}
-        >
-          Siguiente
+        <button className="bg-indigo-600 text-white px-4 py-2 rounded-md text-sm">
+          Crear acción
         </button>
       </div>
-    </div>
+
+      {isLoading && <p>Cargando acciones…</p>}
+      {error && <p className="text-red-500">{error}</p>}
+
+      {!isLoading && !error && (
+        <>
+          <ActionsTable actions={actions} />
+
+          <div className="flex justify-center gap-4 mt-6">
+            <button
+              onClick={prevPage}
+              disabled={pageNumber === 1}
+            >
+              <FaArrowAltCircleLeft />
+            </button>
+
+            <span>
+              Página {pageNumber} de {totalPages}
+            </span>
+
+            <button
+              onClick={nextPage}
+              disabled={pageNumber === totalPages}
+            >
+              <FaArrowAltCircleRight />
+            </button>
+          </div>
+        </>
+      )}
+    </DashboardLayout>
   )
 }
 
