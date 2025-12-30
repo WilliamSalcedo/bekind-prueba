@@ -16,12 +16,12 @@ type SidebarItem = {
 
 const menuItems: SidebarItem[] = [
   { label: "Home", icon: <FiHome />, to: "/home" },
-  { label: "Impacto Social", icon: <FiUsers />, to: "/impacto-social" },
-  { label: "Comunidad", icon: <FiUsers />, to: "/comunidad" },
-  { label: "Sponsors", icon: <FiDollarSign />, to: "/sponsors" },
-  { label: "Marketplace", icon: <FiShoppingBag />, to: "/marketplace" },
+  { label: "Impacto Social", icon: <FiUsers />, to: "" },
+  { label: "Comunidad", icon: <FiUsers />, to: "" },
+  { label: "Sponsors", icon: <FiDollarSign />, to: "" },
+  { label: "Marketplace", icon: <FiShoppingBag />, to: "" },
   { label: "Bakanes", icon: <FiUsers />, to: "/dashboard" },
-  { label: "Contenidos", icon: <FiFileText />, to: "/contenidos" },
+  { label: "Contenidos", icon: <FiFileText />, to: "" },
   {
     label: "Categorias de acciones",
     icon: <FiGrid />,
