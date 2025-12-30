@@ -30,7 +30,25 @@ const Dashboard = () => {
         <CreateActionDrawer open={openDrawer} onClose={()=>setOpenDrawer(false)} onCreated={reload}/>
       </div>
 
-      {isLoading && <p>Cargando acciones…</p>}
+      {isLoading && (
+        <div className="flex items-center justify-center min-h-[300px]">
+          <div className="flex items-center gap-3">
+            <span
+              className="
+                inline-block
+                h-6 w-6
+                animate-spin
+                rounded-full
+                border-3
+                border-indigo-600
+                border-t-transparent
+              "
+            />
+            <p className="text-indigo-600 font-medium">Cargando acciones…</p>
+          </div>
+        </div>
+      )}
+
       {error && <p className="text-red-500">{error}</p>}
 
       {!isLoading && !error && (
