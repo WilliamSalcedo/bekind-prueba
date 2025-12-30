@@ -39,7 +39,7 @@ export const Sidebar = ({ activePath, onLogout }: SidebarProps) => {
     <aside
       className="
         hidden md:flex
-        h-screen
+        
         w-[230px]
         flex-col
         bg-white
