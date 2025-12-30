@@ -1,9 +1,9 @@
+import { Spinner } from "../components/Spinner";
 import { useLogin } from "../hooks/useLogin";
 import { FiMail, FiLock, FiEye, FiEyeOff } from 'react-icons/fi'
 
 const Login = () => {
-
-const {
+  const {
     register,
     handleSubmit,
     errors,
@@ -43,11 +43,11 @@ const {
           <div className="relative">
             <FiMail className="absolute top-3 left-3  text-gray-400"/>
             <input
-            type="email"
+              type="email"
             {...register("email",{required:true})}
-            placeholder="Ingresar correo"
-            className="w-full h-10  rounded-md border border-gray-300 pl-10 pr-3 text-sm bg-gray-50"
-          />
+              placeholder="Ingresar correo"
+              className="w-full h-10  rounded-md border border-gray-300 pl-10 pr-3 text-sm bg-gray-50"
+            />
           </div>
           {errors.email&&<p className="text-red-500 text-xs">Correo requerido</p>}
         </div>
@@ -61,12 +61,12 @@ const {
             <input
             type={showPassword?"text":"password"}
             {...register("password",{required:true})}
-            placeholder="Ingresa tu contraseña"
-            className="w-full h-10  rounded-md border border-gray-300 pl-10 pr-3 text-sm bg-gray-50"
-          />
+              placeholder="Ingresa tu contraseña"
+              className="w-full h-10  rounded-md border border-gray-300 pl-10 pr-3 text-sm bg-gray-50"
+            />
           <button type="button" onClick={togglePassword} className="absolute right-3 top-3 text-gray-400">
             {showPassword? <FiEyeOff />: <FiEye />}
-          </button>
+            </button>
           </div>
           {errors.password&&<p className="text-red-500 text-xs">Contraseña requerida</p>}
         </div>
@@ -86,10 +86,26 @@ const {
           <button
             type="button"
             onClick={handleSubmit(onSubmit)}
-            disabled = {!isValid || isLoading}
-            className="w-[200px] sm:w-[220px] md:w-[260px] h-10 rounded-md bg-gray-300 text-sm font-medium text-gray-600 cursor-not-allowed"
+            disabled={!isValid || isLoading}
+            className={`
+              w-[200px] sm:w-[220px] md:w-[260px]
+              h-10
+              rounded-md
+              text-sm
+              font-medium
+              flex items-center justify-center gap-2
+              transition-colors
+              ${
+                isLoading
+                  ? "bg-gray-300 text-gray-600 cursor-not-allowed"
+                  : isValid
+                  ? "bg-indigo-600 text-white hover:bg-indigo-700"
+                  : "bg-gray-200 text-gray-400 cursor-not-allowed"
+              }
+            `}
           >
-            {isLoading?"Ingresando..." : "Ingresar"}
+            {isLoading && <Spinner />}
+            {isLoading ? "Ingresando..." : "Ingresar"}
           </button>
         </div>
       </div>
